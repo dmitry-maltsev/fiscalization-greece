@@ -13,6 +13,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("TechnicalError")]
         TechnicalError,
         [XmlEnum("XMLSyntaxError")]
-        XmlSyntaxError
+        XmlSyntaxError,
     }
 }

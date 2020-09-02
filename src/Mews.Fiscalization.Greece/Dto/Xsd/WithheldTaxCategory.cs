@@ -35,6 +35,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("14")]
         SpecialSolidarityContribution = 14,
         [XmlEnum("15")]
-        CompensationForTerminationOfEmployment = 15
+        CompensationForTerminationOfEmployment = 15,
     }
 }

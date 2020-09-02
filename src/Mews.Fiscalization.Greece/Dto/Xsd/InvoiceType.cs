@@ -95,6 +95,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("17.5")]
         OtherExpenseAdjustmentRegularisationEntriesAccountingBase,
         [XmlEnum("17.6")]
-        OtherExpenseAdjustmentRegularisationEntriesTaxBase
+        OtherExpenseAdjustmentRegularisationEntriesTaxBase,
     }
 }

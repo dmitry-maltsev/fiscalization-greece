@@ -151,6 +151,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("VAT_365")]
         IntraCommunityServicesReceiptsPerArticle142A,
         [XmlEnum("VAT_366")]
-        OtherRecipientActions
+        OtherRecipientActions,
     }
 }

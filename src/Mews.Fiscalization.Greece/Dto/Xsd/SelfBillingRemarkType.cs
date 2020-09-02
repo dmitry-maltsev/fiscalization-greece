@@ -9,6 +9,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("1")]
         ThirdPartySalesClearance = 1,
         [XmlEnum("2")]
-        FeeFromThirdPartySales = 2
+        FeeFromThirdPartySales = 2,
     }
 }

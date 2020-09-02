@@ -15,6 +15,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("4")]
         StampDuty = 4,
         [XmlEnum("5")]
-        Deductions = 5
+        Deductions = 5,
     }
 }

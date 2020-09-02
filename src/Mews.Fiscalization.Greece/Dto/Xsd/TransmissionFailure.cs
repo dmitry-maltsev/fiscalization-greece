@@ -9,6 +9,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("1")]
         ProviderCommunicationIssue = 1,
         [XmlEnum("2")]
-        MyDataCommunicationIssue = 2
+        MyDataCommunicationIssue = 2,
     }
 }

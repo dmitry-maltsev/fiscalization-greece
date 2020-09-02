@@ -170,6 +170,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         YER,
         ZAR,
         ZMK,
-        ZWL
+        ZWL,
     }
 }

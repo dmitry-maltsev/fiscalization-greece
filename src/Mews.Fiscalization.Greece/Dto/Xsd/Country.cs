@@ -250,6 +250,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         YT,
         ZA,
         ZM,
-        ZW
+        ZW,
     }
 }

@@ -27,6 +27,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("category1_10")]
         OtherIncomeAdjustmentAndRegularisationEntries,
         [XmlEnum("category1_95")]
-        OtherIncomeRelatedInformation
+        OtherIncomeRelatedInformation,
     }
 }

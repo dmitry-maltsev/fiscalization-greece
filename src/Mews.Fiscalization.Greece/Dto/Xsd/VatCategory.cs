@@ -21,6 +21,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("7")]
         Vat0 = 7,
         [XmlEnum("8")]
-        WithoutVat = 8
+        WithoutVat = 8,
     }
 }

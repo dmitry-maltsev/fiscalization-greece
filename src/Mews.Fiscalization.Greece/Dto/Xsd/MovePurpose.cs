@@ -21,6 +21,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("7")]
         EditAssembly = 7,
         [XmlEnum("8")]
-        BetweenEntityBranches = 8
+        BetweenEntityBranches = 8,
     }
 }

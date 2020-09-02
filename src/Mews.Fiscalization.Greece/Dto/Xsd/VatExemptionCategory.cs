@@ -51,6 +51,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("22")]
         VatIncludedArticle45 = 22,
         [XmlEnum("23")]
-        VatIncludedArticle46 = 23
+        VatIncludedArticle46 = 23,
     }
 }

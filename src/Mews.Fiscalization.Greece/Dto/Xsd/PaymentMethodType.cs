@@ -15,6 +15,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("4")]
         Check = 4,
         [XmlEnum("5")]
-        OnCredit = 5
+        OnCredit = 5,
     }
 }

@@ -11,6 +11,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("2")]
         Rate2_4 = 2,
         [XmlEnum("3")]
-        Rate3_6 = 3
+        Rate3_6 = 3,
     }
 }

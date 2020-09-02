@@ -23,6 +23,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("8")]
         EcotaxAndPlasticBagTax = 8,
         [XmlEnum("9")]
-        OliveFruitFlyControlContribution = 9
+        OliveFruitFlyControlContribution = 9,
     }
 }

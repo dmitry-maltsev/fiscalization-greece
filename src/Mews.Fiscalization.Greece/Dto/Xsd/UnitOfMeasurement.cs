@@ -11,6 +11,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("2")]
         Kilogram = 2,
         [XmlEnum("3")]
-        Litre = 3
+        Litre = 3,
     }
 }

@@ -69,6 +69,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("E3_881_003")]
         IntraCommunityForeignSalesOnBehalfOfThirdParties,
         [XmlEnum("E3_881_004")]
-        ThirdCountryForeignSalesOnBehalfOfThirdParties
+        ThirdCountryForeignSalesOnBehalfOfThirdParties,
     }
 }

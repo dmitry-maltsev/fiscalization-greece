@@ -35,6 +35,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("category2_14")]
         StockAtPeriodEnd,
         [XmlEnum("category2_95")]
-        OtherExpenseRelatedInformation
+        OtherExpenseRelatedInformation,
     }
 }

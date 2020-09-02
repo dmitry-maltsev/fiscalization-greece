@@ -33,6 +33,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlEnum("13")]
         LuxuryTaxDomesticGoods = 13,
         [XmlEnum("14")]
-        CasinosAdmissionTicketPrice = 14
+        CasinosAdmissionTicketPrice = 14,
     }
 }
