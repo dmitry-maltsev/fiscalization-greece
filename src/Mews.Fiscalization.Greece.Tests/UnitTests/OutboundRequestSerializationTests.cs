@@ -1,5 +1,8 @@
 ﻿using AutoFixture;
 using Mews.Fiscalization.Greece.Dto.Xsd;
+using System;
+using System.IO;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Schema;
 using System.Xml.Serialization;
@@ -24,9 +27,9 @@ namespace Mews.Fiscalization.Greece.Tests.UnitTests
 
             var xmlDocument = SerializeModel(invoicesDocModel);
 
-            xmlDocument.Schemas.Add(InvoicesDoc.Namespace, "Data\\Schemas\\InvoicesDoc.xsd");
-            xmlDocument.Schemas.Add(IncomeClassification.Namespace, "Data\\Schemas\\IncomeClassification.xsd");
-            xmlDocument.Schemas.Add(ExpenseClassification.Namespace, "Data\\Schemas\\ExpensesClassificaton.xsd");
+            xmlDocument.Schemas.Add(InvoicesDoc.Namespace, GetPath("Data/Schemas/InvoicesDoc.xsd"));
+            xmlDocument.Schemas.Add(IncomeClassification.Namespace, GetPath("Data/Schemas/IncomeClassification.xsd"));
+            xmlDocument.Schemas.Add(ExpenseClassification.Namespace, GetPath("Data/Schemas/ExpensesClassificaton.xsd"));
 
             bool errors = false;
             ValidationEventHandler eventHandler = new ValidationEventHandler((o, e) =>
@@ -111,6 +114,14 @@ namespace Mews.Fiscalization.Greece.Tests.UnitTests
             }
 
             return xmlDocument;
+        }
+
+        private string GetPath(string relativePath)
+        {
+            var codeBaseUri = new Uri(Assembly.GetExecutingAssembly().CodeBase);
+            var codeBasePath = Uri.UnescapeDataString(codeBaseUri.AbsolutePath);
+            var dirPath = Path.GetDirectoryName(codeBasePath);
+            return Path.Combine(dirPath, relativePath);
         }
     }
 
