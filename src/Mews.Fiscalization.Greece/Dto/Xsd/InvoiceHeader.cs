@@ -13,8 +13,8 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlElement(ElementName = "aa", IsNullable = false)]
         public string SerialNumber { get; set; }
 
-        [XmlElement(ElementName = "issueDate", IsNullable = false)]
-        public string IssueDate { get; set; }
+        [XmlElement(ElementName = "issueDate", DataType = "date", IsNullable = false)]
+        public DateTime IssueDate { get; set; }
 
         [XmlElement(ElementName = "invoiceType", IsNullable = false)]
         public InvoiceType InvoiceType { get; set; }
@@ -49,14 +49,14 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlIgnore]
         public bool SelfPricingSpecified { get; set; }
 
-        [XmlElement(ElementName = "dispatchDate")]
-        public string DispatchDate { get; set; }
+        [XmlElement(ElementName = "dispatchDate", DataType = "date")]
+        public DateTime DispatchDate { get; set; }
 
         [XmlIgnore]
         public bool DispatchDateSpecified { get; set; }
 
-        [XmlElement(ElementName = "dispatchTime")]
-        public string DispatchTime { get; set; }
+        [XmlElement(ElementName = "dispatchTime", DataType = "time")]
+        public DateTime DispatchTime { get; set; }
 
         [XmlIgnore]
         public bool DispatchTimeSpecified { get; set; }

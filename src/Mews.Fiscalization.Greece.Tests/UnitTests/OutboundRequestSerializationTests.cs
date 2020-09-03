@@ -56,21 +56,8 @@ namespace Mews.Fiscalization.Greece.Tests.UnitTests
                 .With(x => x.SerialNumber, 1)
                 .Create();
 
-            var invoiceHeader = _fixture
-                .Build<InvoiceHeader>()
-                .With(x => x.IssueDate, "2020-01-01")
-                .With(x => x.DispatchDate, "2020-01-01")
-                .With(x => x.DispatchTime, "00:00:00.000")
-                .Create();
-
-            var activityUndertakingDeclaration = _fixture
-                .Build<ActivityUndertakingDeclaration>()
-                .With(x => x.ApplicationDate, "2020-01-01")
-                .Create();
-
             var invoiceDetail = _fixture
                 .Build<InvoiceDetail>()
-                .With(x => x.ActivityUndertakingDeclaration, activityUndertakingDeclaration)
                 .With(x => x.IncomeClassification, incomeClassification)
                 .With(x => x.ExpenseClassification, expensesClassification)
                 .Create();
@@ -89,7 +76,6 @@ namespace Mews.Fiscalization.Greece.Tests.UnitTests
 
             var invoice = _fixture.Build<Invoice>()
                 .With(x => x.Taxes, new[] { taxes })
-                .With(x => x.InvoiceHeader, invoiceHeader)
                 .With(x => x.InvoiceDetail, invoiceDetail)
                 .With(x => x.InvoiceSummary, invoiceSummary)
                 .Create();
