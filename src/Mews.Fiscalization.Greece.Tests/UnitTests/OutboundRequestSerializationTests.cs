@@ -31,17 +31,17 @@ namespace Mews.Fiscalization.Greece.Tests.UnitTests
             xmlDocument.Schemas.Add(IncomeClassification.Namespace, GetPath("Data/Schemas/IncomeClassification.xsd"));
             xmlDocument.Schemas.Add(ExpenseClassification.Namespace, GetPath("Data/Schemas/ExpensesClassificaton.xsd"));
 
-            bool errors = false;
+            bool hasErrors = false;
             ValidationEventHandler eventHandler = new ValidationEventHandler((o, e) =>
             {
-                errors = true;
+                hasErrors = true;
             });
 
             // Act
             xmlDocument.Validate(eventHandler);
 
             // Assert
-            Assert.False(errors);
+            Assert.False(hasErrors);
         }
 
         private InvoicesDoc BuildInvoicesDocModel()
