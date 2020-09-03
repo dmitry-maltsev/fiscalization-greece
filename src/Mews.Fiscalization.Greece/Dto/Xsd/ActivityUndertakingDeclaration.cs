@@ -9,7 +9,7 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
     {
         [XmlElement(ElementName = "applicationId", IsNullable = false)]
         public string ApplicationId { get; set; }
-        
+
         [XmlElement(ElementName = "applicationDate", DataType = "date", IsNullable = false)]
         public DateTime ApplicationDate { get; set; }
 
