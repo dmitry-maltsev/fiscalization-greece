@@ -1,4 +1,5 @@
 ﻿using Mews.Fiscalization.Greece.Dto.Xsd;
+using Mews.Fiscalization.Greece.Model;
 using System;
 using System.Diagnostics;
 using System.Net.Http;
@@ -9,6 +10,9 @@ namespace Mews.Fiscalization.Greece
 {
     internal class RestClient
     {
+        private static readonly string ProductionEndpoint = "prod_endpoint";
+        private static readonly string SandboxEndpoint = "https://mydata-dev.azure-api.net/SendInvoices";
+
         public string UserId { get; }
 
         public string SubscriptionKey { get; }
@@ -19,22 +23,27 @@ namespace Mews.Fiscalization.Greece
 
         private HttpClient HttpClient { get; }
 
-        public RestClient(string userId, string subscriptionKey, string endpoint, AadeLogger logger = null)
+        internal RestClient(string userId, string subscriptionKey, AadeEnvironment environment, AadeLogger logger = null)
         {
-            UserId = userId;
-            SubscriptionKey = subscriptionKey;
+            UserId = userId ?? throw new ArgumentNullException(userId);
+            SubscriptionKey = subscriptionKey ?? throw new ArgumentNullException(subscriptionKey);
+
+            var endpoint = environment == AadeEnvironment.Production
+                ? ProductionEndpoint
+                : SandboxEndpoint;
             EndpointUri = new Uri(endpoint);
+
             Logger = logger;
+
             HttpClient = new HttpClient();
+            HttpClient.DefaultRequestHeaders.Add("aade-user-id", $"{UserId}");
+            HttpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", $"{SubscriptionKey}");
         }
 
-        public async Task<ResponseDoc> SendRequestAsync(InvoicesDoc invoicesDoc)
+        internal async Task<ResponseDoc> SendRequestAsync(InvoicesDoc invoicesDoc)
         {
             var requestContent = XmlManipulator.Serialize(invoicesDoc).OuterXml;
             var requestMessage = BuildHttpRequestMessage(requestContent);
-
-            HttpClient.DefaultRequestHeaders.Add("aade-user-id", $"{UserId}");
-            HttpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", $"{SubscriptionKey}");
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -44,8 +53,8 @@ namespace Mews.Fiscalization.Greece
             stopwatch.Stop();
             Logger?.Info($"HTTP request finished in {stopwatch.ElapsedMilliseconds}ms.", new { HttpRequestDuration = stopwatch.ElapsedMilliseconds });
 
-            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(continueOnCapturedContext: false);            
-            
+            var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(continueOnCapturedContext: false);
+
             return XmlManipulator.Deserialize<ResponseDoc>(responseContent);
         }
 
