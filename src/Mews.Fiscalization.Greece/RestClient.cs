@@ -10,8 +10,12 @@ namespace Mews.Fiscalization.Greece
 {
     internal class RestClient
     {
-        private static readonly string ProductionEndpoint = "prod_endpoint";
-        private static readonly string SandboxEndpoint = "https://mydata-dev.azure-api.net/SendInvoices";
+        private static readonly Uri ProductionBaseUri = new Uri("prod_endpoint");
+        private static readonly Uri SandboxBaseUri = new Uri("https://mydata-dev.azure-api.net");
+        private static readonly string SendInvoicesEndpointMethodName = "SendInvoices";
+        private static readonly string UserIdHeaderName = "aade-user-id";
+        private static readonly string SubscriptionKeyHeaderName = "Ocp-Apim-Subscription-Key";
+        private static readonly string XmlMediaType  = "application/xml";
 
         public string UserId { get; }
 
@@ -28,16 +32,16 @@ namespace Mews.Fiscalization.Greece
             UserId = userId ?? throw new ArgumentNullException(userId);
             SubscriptionKey = subscriptionKey ?? throw new ArgumentNullException(subscriptionKey);
 
-            var endpoint = environment == AadeEnvironment.Production
-                ? ProductionEndpoint
-                : SandboxEndpoint;
-            EndpointUri = new Uri(endpoint);
+            var baseUri = environment == AadeEnvironment.Production
+                ? ProductionBaseUri
+                : SandboxBaseUri;
+            EndpointUri = new Uri(baseUri, SendInvoicesEndpointMethodName);
 
             Logger = logger;
 
             HttpClient = new HttpClient();
-            HttpClient.DefaultRequestHeaders.Add("aade-user-id", $"{UserId}");
-            HttpClient.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", $"{SubscriptionKey}");
+            HttpClient.DefaultRequestHeaders.Add(UserIdHeaderName, $"{UserId}");
+            HttpClient.DefaultRequestHeaders.Add(SubscriptionKeyHeaderName, $"{SubscriptionKey}");
         }
 
         internal async Task<ResponseDoc> SendRequestAsync(InvoicesDoc invoicesDoc)
@@ -62,7 +66,7 @@ namespace Mews.Fiscalization.Greece
         {
             var message = new HttpRequestMessage(HttpMethod.Post, EndpointUri);
 
-            message.Content = new StringContent(content: messageContent, encoding: Encoding.UTF8, mediaType: "application/xml");
+            message.Content = new StringContent(content: messageContent, encoding: Encoding.UTF8, mediaType: XmlMediaType);
 
             return message;
         }
