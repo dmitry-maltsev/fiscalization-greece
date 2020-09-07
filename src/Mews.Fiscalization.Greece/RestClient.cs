@@ -43,7 +43,7 @@ namespace Mews.Fiscalization.Greece
         internal async Task<ResponseDoc> SendRequestAsync(InvoicesDoc invoicesDoc)
         {
             var requestContent = XmlManipulator.Serialize(invoicesDoc).OuterXml;
-            var requestMessage = BuildHttpRequestMessage(requestContent);
+            var requestMessage = BuildHttpPostMessage(requestContent);
 
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -58,7 +58,7 @@ namespace Mews.Fiscalization.Greece
             return XmlManipulator.Deserialize<ResponseDoc>(responseContent);
         }
 
-        private HttpRequestMessage BuildHttpRequestMessage(string messageContent)
+        private HttpRequestMessage BuildHttpPostMessage(string messageContent)
         {
             var message = new HttpRequestMessage(HttpMethod.Post, EndpointUri);
 
