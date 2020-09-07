@@ -3,9 +3,7 @@ using Mews.Fiscalization.Greece.Dto.Xsd;
 using System;
 using System.IO;
 using System.Reflection;
-using System.Xml;
 using System.Xml.Schema;
-using System.Xml.Serialization;
 using Xunit;
 
 namespace Mews.Fiscalization.Greece.Tests.UnitTests
@@ -25,7 +23,7 @@ namespace Mews.Fiscalization.Greece.Tests.UnitTests
             // Arrange
             var invoicesDocModel = BuildInvoicesDocModel();
 
-            var xmlDocument = SerializeModel(invoicesDocModel);
+            var xmlDocument = XmlManipulator.Serialize(invoicesDocModel);
 
             xmlDocument.Schemas.Add(InvoicesDoc.Namespace, GetPath("Data/Schemas/InvoicesDoc.xsd"));
             xmlDocument.Schemas.Add(IncomeClassification.Namespace, GetPath("Data/Schemas/IncomeClassification.xsd"));
@@ -87,19 +85,6 @@ namespace Mews.Fiscalization.Greece.Tests.UnitTests
                     invoice
                 }
             };
-        }
-
-        private XmlDocument SerializeModel(InvoicesDoc model)
-        {
-            var xmlDocument = new XmlDocument();
-            var navigator = xmlDocument.CreateNavigator();
-            using (var writer = navigator.AppendChild())
-            {
-                var xmlSerializer = new XmlSerializer(typeof(InvoicesDoc));
-                xmlSerializer.Serialize(writer, model);
-            }
-
-            return xmlDocument;
         }
 
         private string GetPath(string relativePath)

@@ -15,7 +15,7 @@ namespace Mews.Fiscalization.Greece
         private static readonly string SendInvoicesEndpointMethodName = "SendInvoices";
         private static readonly string UserIdHeaderName = "aade-user-id";
         private static readonly string SubscriptionKeyHeaderName = "Ocp-Apim-Subscription-Key";
-        private static readonly string XmlMediaType  = "application/xml";
+        private static readonly string XmlMediaType = "application/xml";
 
         public string UserId { get; }
 
@@ -46,7 +46,7 @@ namespace Mews.Fiscalization.Greece
 
         internal async Task<ResponseDoc> SendRequestAsync(InvoicesDoc invoicesDoc)
         {
-            var requestContent = XmlManipulator.Serialize(invoicesDoc).OuterXml;
+            var requestContent = XmlManipulator.Serialize(invoicesDoc).DocumentElement.OuterXml;
             var requestMessage = BuildHttpPostMessage(requestContent);
 
             var stopwatch = new Stopwatch();

@@ -16,7 +16,7 @@ namespace Mews.Fiscalization.Greece
             }
         }
 
-        public static XmlElement Serialize<T>(T value)
+        public static XmlDocument Serialize<T>(T value)
             where T : class
         {
             var xmlDocument = new XmlDocument();
@@ -26,7 +26,7 @@ namespace Mews.Fiscalization.Greece
                 var xmlSerializer = new XmlSerializer(typeof(T));
                 xmlSerializer.Serialize(writer, value);
             }
-            return xmlDocument.DocumentElement;
+            return xmlDocument;
         }
     }
 }
