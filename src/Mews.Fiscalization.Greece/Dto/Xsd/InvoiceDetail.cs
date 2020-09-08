@@ -25,7 +25,6 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlElement(ElementName = "invoiceDetailType")]
         public SelfBillingRemarkType SelfBillingRemarkType { get; set; }
 
-        [XmlIgnore]
         public bool SelfBillingRemarkTypeSpecified { get; set; }
 
         [XmlElement(ElementName = "netValue", IsNullable = false)]
@@ -85,13 +84,11 @@ namespace Mews.Fiscalization.Greece.Dto.Xsd
         [XmlElement(ElementName = "feesPercentCategory")]
         public FeeCategory FeesCategory { get; set; }
 
-        [XmlIgnore]
         public bool FeesCategorySpecified { get; set; }
 
         [XmlElement(ElementName = "otherTaxesPercentCategory")]
         public OtherTaxCategory OtherTaxesCategory { get; set; }
 
-        [XmlIgnore]
         public bool OtherTaxesCategorySpecified { get; set; }
 
         [XmlElement(ElementName = "otherTaxesAmount")]
