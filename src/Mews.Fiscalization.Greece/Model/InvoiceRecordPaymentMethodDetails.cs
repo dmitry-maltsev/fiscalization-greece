@@ -6,14 +6,14 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordPaymentMethodDetails
     {
-        public InvoiceRecordPaymentMethodDetails(decimal amount, string paymentMethodInfo)
+        public InvoiceRecordPaymentMethodDetails(decimal amount, PaymentType paymentType)
         {
             Amount = amount;
-            PaymentMethodInfo = paymentMethodInfo;
+            PaymentType = paymentType;
         }
 
         public decimal Amount { get; }
 
-        public string PaymentMethodInfo { get; }
+        public PaymentType PaymentType { get; }
     }
 }

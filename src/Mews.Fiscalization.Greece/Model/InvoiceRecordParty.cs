@@ -6,11 +6,12 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordParty
     {
-        public InvoiceRecordParty(string vatNumber, int branch, string name, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
+        public InvoiceRecordParty(string vatNumber, int branch, string name, string countryCode, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
         {
             VatNumber = vatNumber;
             Branch = branch;
             Name = name;
+            CountryCode = countryCode;
             Address = invoiceRecordPartyAddress;
         }
 
@@ -19,6 +20,8 @@ namespace Mews.Fiscalization.Greece.Model
         public int Branch { get; }
 
         public string Name { get; }
+
+        public string CountryCode { get; }
 
         public InvoiceRecordPartyAddress Address { get; }
     }

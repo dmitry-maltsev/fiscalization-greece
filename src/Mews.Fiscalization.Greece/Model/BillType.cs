@@ -4,7 +4,9 @@ using System.Text;
 
 namespace Mews.Fiscalization.Greece.Model
 {
-    public class InvoiceRecordTaxes
+    public enum BillType
     {
+        RetailSalesReceipt,
+        SalesInvoice
     }
 }
