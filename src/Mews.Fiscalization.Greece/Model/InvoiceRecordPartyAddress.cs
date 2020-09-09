@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Mews.Fiscalization.Greece.Extensions;
+using System;
 
 namespace Mews.Fiscalization.Greece.Model
 {
@@ -8,6 +7,16 @@ namespace Mews.Fiscalization.Greece.Model
     {
         public InvoiceRecordPartyAddress(string street, string number, string postalCode, string city)
         {
+            if (postalCode.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(postalCode));
+            }
+
+            if (city.IsNullOrEmpty())
+            {
+                throw new ArgumentNullException(nameof(city));
+            }
+
             Street = street;
             Number = number;
             PostalCode = postalCode;

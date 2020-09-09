@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Mews.Fiscalization.Greece.Model
 {
@@ -16,11 +15,11 @@ namespace Mews.Fiscalization.Greece.Model
 			AuthenticationCode = authenticationCode;
 			Issuer = issuer;
 			Counterpart = counterpart;
-			InvoiceHeader = invoiceHeader;
+			InvoiceHeader = invoiceHeader ?? throw new ArgumentNullException(nameof(invoiceHeader));
 			PaymentMethods = paymentMethods;
-			InvoiceDetails = invoiceDetails;
+			InvoiceDetails = invoiceDetails ?? throw new ArgumentNullException(nameof(invoiceDetails));
 			TaxesTotals = taxesTotals;
-			InvoiceSummary = invoiceSummary;
+			InvoiceSummary = invoiceSummary ?? throw new ArgumentNullException(nameof(invoiceSummary));
 		}
 
 		public string InvoiceIdentifier { get; }

@@ -1,20 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Mews.Fiscalization.Greece.Model.Types;
+using System;
 
 namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordParty
     {
-        public InvoiceRecordParty(string vatNumber, int branch, string name, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
+        public InvoiceRecordParty(VatIdentifier vatNumber, int branch, string name, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
         {
-            VatNumber = vatNumber;
+            if (branch < 0)
+            {
+                throw new ArgumentException($"Minimal value of {nameof(branch)} number is 0.");
+            }
+            
+            VatNumber = vatNumber ?? throw new ArgumentNullException(nameof(vatNumber));
             Branch = branch;
             Name = name;
             Address = invoiceRecordPartyAddress;
         }
 
-        public string VatNumber { get; }
+        public VatIdentifier VatNumber { get; }
 
         public int Branch { get; }
 

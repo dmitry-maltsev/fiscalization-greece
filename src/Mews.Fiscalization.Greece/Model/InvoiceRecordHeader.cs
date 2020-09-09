@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Mews.Fiscalization.Greece.Model.Types;
+using System;
 
 namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordHeader
     {
-        public InvoiceRecordHeader(string invoiceSeries, string invoiceSerialNumber, DateTime invoiceIssueDate, bool vatPaymentSuspension, decimal? exchangeRate, 
+        public InvoiceRecordHeader(LimitedString1to50 invoiceSeries, LimitedString1to50 invoiceSerialNumber, DateTime invoiceIssueDate, bool vatPaymentSuspension, decimal? exchangeRate,
             long? correlatedInvoices, bool selfPricing, DateTime? dispatchDate, DateTime? dispatchTime, string vehicleNumber)
         {
-            InvoiceSeries = invoiceSeries;
-            InvoiceSerialNumber = invoiceSerialNumber;
+            InvoiceSeries = invoiceSeries ?? throw new ArgumentNullException(nameof(invoiceSeries));
+            InvoiceSerialNumber = invoiceSerialNumber ?? throw new ArgumentNullException(nameof(invoiceSerialNumber));
             InvoiceIssueDate = invoiceIssueDate;
             VatPaymentSuspension = vatPaymentSuspension;
             ExchangeRate = exchangeRate;
@@ -21,9 +20,9 @@ namespace Mews.Fiscalization.Greece.Model
             VehicleNumber = vehicleNumber;
         }
 
-        public string InvoiceSeries { get; }
+        public LimitedString1to50 InvoiceSeries { get; }
 
-        public string InvoiceSerialNumber { get; }
+        public LimitedString1to50 InvoiceSerialNumber { get; }
 
         public DateTime InvoiceIssueDate { get; }
 
