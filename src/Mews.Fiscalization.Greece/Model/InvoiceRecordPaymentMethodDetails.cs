@@ -5,14 +5,14 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordPaymentMethodDetails
     {
-        public InvoiceRecordPaymentMethodDetails(Amount amount, string paymentMethodInfo)
+        public InvoiceRecordPaymentMethodDetails(Amount amount, PaymentType paymentType)
         {
             Amount = amount ?? throw new ArgumentNullException(nameof(amount));
-            PaymentMethodInfo = paymentMethodInfo;
+            PaymentType = paymentType;
         }
 
         public Amount Amount { get; }
 
-        public string PaymentMethodInfo { get; }
+        public PaymentType PaymentType { get; }
     }
 }

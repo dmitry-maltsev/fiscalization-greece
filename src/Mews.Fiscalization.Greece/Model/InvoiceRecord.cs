@@ -5,20 +5,17 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecord
     {
-		public InvoiceRecord(string invoiceIdentifier, long? invoiceRegistrationNumber, long? cancelledByInvoiceRegistrationNumber, string authenticationCode, InvoiceRecordParty issuer, InvoiceRecordParty counterpart, 
-			InvoiceRecordHeader invoiceHeader, IEnumerable<InvoiceRecordPaymentMethodDetails> paymentMethods, InvoiceRecordDetails invoiceDetails, 
-			IEnumerable<InvoiceRecordTaxes> taxesTotals, InvoiceRecordSummary invoiceSummary)
+		public InvoiceRecord(string invoiceIdentifier, long? invoiceRegistrationNumber, long? cancelledByInvoiceRegistrationNumber, InvoiceRecordParty issuer, InvoiceRecordParty counterpart, 
+			InvoiceRecordHeader invoiceHeader, IEnumerable<InvoiceRecordPaymentMethodDetails> paymentMethods, InvoiceRecordDetail invoiceDetail, InvoiceRecordSummary invoiceSummary)
 		{
 			InvoiceIdentifier = invoiceIdentifier;
 			InvoiceRegistrationNumber = invoiceRegistrationNumber;
 			CancelledByInvoiceRegistrationNumber = cancelledByInvoiceRegistrationNumber;
-			AuthenticationCode = authenticationCode;
 			Issuer = issuer;
 			Counterpart = counterpart;
 			InvoiceHeader = invoiceHeader ?? throw new ArgumentNullException(nameof(invoiceHeader));
 			PaymentMethods = paymentMethods;
-			InvoiceDetails = invoiceDetails ?? throw new ArgumentNullException(nameof(invoiceDetails));
-			TaxesTotals = taxesTotals;
+			InvoiceDetail = invoiceDetail ?? throw new ArgumentNullException(nameof(invoiceDetail));
 			InvoiceSummary = invoiceSummary ?? throw new ArgumentNullException(nameof(invoiceSummary));
 		}
 
@@ -28,8 +25,6 @@ namespace Mews.Fiscalization.Greece.Model
 
 		public long? CancelledByInvoiceRegistrationNumber { get; }
 
-		public string AuthenticationCode { get; }
-
 		public InvoiceRecordParty Issuer { get; }
 
 		public InvoiceRecordParty Counterpart { get; }
@@ -38,9 +33,7 @@ namespace Mews.Fiscalization.Greece.Model
 
 		public IEnumerable<InvoiceRecordPaymentMethodDetails> PaymentMethods { get; set; }
 
-		public InvoiceRecordDetails InvoiceDetails { get; }
-
-		public IEnumerable<InvoiceRecordTaxes> TaxesTotals { get; }
+		public InvoiceRecordDetail InvoiceDetail { get; }
 
 		public InvoiceRecordSummary InvoiceSummary { get; }
 	}

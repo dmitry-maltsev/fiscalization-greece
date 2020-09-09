@@ -5,7 +5,7 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordParty
     {
-        public InvoiceRecordParty(VatIdentifier vatNumber, int branch, string name, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
+        public InvoiceRecordParty(VatIdentifier vatNumber, int branch, string name, string countryCode, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
         {
             if (branch < 0)
             {
@@ -15,6 +15,7 @@ namespace Mews.Fiscalization.Greece.Model
             VatNumber = vatNumber ?? throw new ArgumentNullException(nameof(vatNumber));
             Branch = branch;
             Name = name;
+            CountryCode = countryCode;
             Address = invoiceRecordPartyAddress;
         }
 
@@ -23,6 +24,8 @@ namespace Mews.Fiscalization.Greece.Model
         public int Branch { get; }
 
         public string Name { get; }
+
+        public string CountryCode { get; }
 
         public InvoiceRecordPartyAddress Address { get; }
     }
