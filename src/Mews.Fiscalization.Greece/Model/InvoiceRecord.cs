@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Mews.Fiscalization.Greece.Model.Types;
+using System;
 using System.Collections.Generic;
 
 namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecord
     {
-		public InvoiceRecord(string invoiceIdentifier, long? invoiceRegistrationNumber, long? cancelledByInvoiceRegistrationNumber, InvoiceRecordParty issuer, InvoiceRecordParty counterpart, 
+		public InvoiceRecord(NotEmptyString invoiceIdentifier, long? invoiceRegistrationNumber, long? cancelledByInvoiceRegistrationNumber, InvoiceRecordParty issuer, InvoiceRecordParty counterpart, 
 			InvoiceRecordHeader invoiceHeader, IEnumerable<InvoiceRecordPaymentMethodDetails> paymentMethods, InvoiceRecordDetail invoiceDetail, InvoiceRecordSummary invoiceSummary)
 		{
 			InvoiceIdentifier = invoiceIdentifier;
@@ -19,7 +20,7 @@ namespace Mews.Fiscalization.Greece.Model
 			InvoiceSummary = invoiceSummary ?? throw new ArgumentNullException(nameof(invoiceSummary));
 		}
 
-		public string InvoiceIdentifier { get; }
+		public NotEmptyString InvoiceIdentifier { get; }
 
 		public long? InvoiceRegistrationNumber { get; }
 

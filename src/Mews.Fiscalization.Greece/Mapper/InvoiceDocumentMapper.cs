@@ -41,7 +41,7 @@ namespace Mews.Fiscalization.Greece.Mapper
             return new Invoice
             {
                 //ToDo: add invoice mark
-                InvoiceId = invoiceRecord.InvoiceIdentifier,
+                InvoiceId = invoiceRecord.InvoiceIdentifier?.Value,
                 InvoiceIssuer = GetInvoiceParty(invoiceRecord.Issuer),
                 InvoiceCounterpart = GetInvoiceParty(invoiceRecord.Counterpart),
                 PaymentMethods = GetInvoicePaymentMethods(invoiceRecord.PaymentMethods),
@@ -59,7 +59,7 @@ namespace Mews.Fiscalization.Greece.Mapper
             {
                 result.Add(new PaymentMethod
                 {
-                    Amount = paymentMethod.Amount,
+                    Amount = paymentMethod.Amount.Value,
                     PaymentMethodType = (PaymentMethodType)Enum.Parse(typeof(PaymentMethodType), paymentMethod.PaymentType.ToString(), true)
                 });
             }
@@ -73,10 +73,10 @@ namespace Mews.Fiscalization.Greece.Mapper
             {
                 return new InvoiceParty
                 {
-                    Country = (Country)Enum.Parse(typeof(Country), invoiceRecordParty.CountryCode, true),
-                    Branch = invoiceRecordParty.Branch,
-                    Name = invoiceRecordParty.Name,
-                    VatNumber = invoiceRecordParty.VatNumber,
+                    Country = (Country)Enum.Parse(typeof(Country), invoiceRecordParty.CountryCode.Value, true),
+                    Branch = invoiceRecordParty.Branch.Value,
+                    Name = invoiceRecordParty.Name?.Value,
+                    VatNumber = invoiceRecordParty.VatNumber.Value,
                     Address = GetAddress(invoiceRecordParty.Address)
                 };
             }
@@ -90,10 +90,10 @@ namespace Mews.Fiscalization.Greece.Mapper
             {
                 return new Address
                 {
-                    City = invoiceRecordPartyAddress.City,
-                    Number = invoiceRecordPartyAddress.Number,
-                    PostalCode = invoiceRecordPartyAddress.PostalCode,
-                    Street = invoiceRecordPartyAddress.Street
+                    City = invoiceRecordPartyAddress.City.Value,
+                    Number = invoiceRecordPartyAddress.Number?.Value,
+                    PostalCode = invoiceRecordPartyAddress.PostalCode.Value,
+                    Street = invoiceRecordPartyAddress.Street?.Value
                 };
             }
 
@@ -106,9 +106,9 @@ namespace Mews.Fiscalization.Greece.Mapper
             {
                 InvoiceType = (InvoiceType)Enum.Parse(typeof(InvoiceType), invoiceRecord.InvoiceHeader.BillType.ToString(), true),
                 IssueDate = invoiceRecord.InvoiceHeader.InvoiceIssueDate,
-                SerialNumber = invoiceRecord.InvoiceHeader.InvoiceSerialNumber,
-                Series = invoiceRecord.InvoiceHeader.InvoiceSeries,
-                Currency = (Currency)Enum.Parse(typeof(Currency), invoiceRecord.InvoiceHeader.CurrencyCode, true),
+                SerialNumber = invoiceRecord.InvoiceHeader.InvoiceSerialNumber.Value,
+                Series = invoiceRecord.InvoiceHeader.InvoiceSeries.Value,
+                Currency = (Currency)Enum.Parse(typeof(Currency), invoiceRecord.InvoiceHeader.CurrencyCode?.Value, true),
                 CurrencySpecified = true
                 //ToDo: add exchange rate
             };
@@ -118,9 +118,9 @@ namespace Mews.Fiscalization.Greece.Mapper
         {
             return new InvoiceDetail
             {
-                LineNumber = invoiceRecord.InvoiceDetail.LineNumber,
-                NetValue = invoiceRecord.InvoiceDetail.NetValue,
-                VatAmount = invoiceRecord.InvoiceDetail.VatAmount,
+                LineNumber = invoiceRecord.InvoiceDetail.LineNumber.Value,
+                NetValue = invoiceRecord.InvoiceDetail.NetValue.Value,
+                VatAmount = invoiceRecord.InvoiceDetail.VatAmount.Value,
                 VatCategory = (VatCategory)Enum.Parse(typeof(VatCategory), invoiceRecord.InvoiceDetail.VatType.ToString(), true),
                 IncomeClassification = GetIncomeClassification(invoiceRecord.InvoiceDetail.InvoiceRecordIncomeClassification)
             };
@@ -130,9 +130,9 @@ namespace Mews.Fiscalization.Greece.Mapper
         {
             return new InvoiceSummary
             {
-                TotalNetValue = invoiceRecord.InvoiceSummary.TotalNetValue,
-                TotalVatAmount = invoiceRecord.InvoiceSummary.TotalVatAmount,
-                TotalGrossValue = invoiceRecord.InvoiceSummary.TotalGrossValue,
+                TotalNetValue = invoiceRecord.InvoiceSummary.TotalNetValue.Value,
+                TotalVatAmount = invoiceRecord.InvoiceSummary.TotalVatAmount.Value,
+                TotalGrossValue = invoiceRecord.InvoiceSummary.TotalGrossValue.Value,
                 IncomeClassification = GetIncomeClassification(invoiceRecord.InvoiceSummary.InvoiceRecordIncomeClassification)
             };
         }
@@ -141,7 +141,7 @@ namespace Mews.Fiscalization.Greece.Mapper
         {
             return new IncomeClassification
             {
-                Amount = invoiceRecordIncomeClassification.Amount,
+                Amount = invoiceRecordIncomeClassification.Amount.Value,
                 ClassificationCategory = (IncomeClassificationCategory)Enum.Parse(typeof(IncomeClassificationCategory), invoiceRecordIncomeClassification.ClassificationCategory.ToString(), true),
                 ClassificationType = (IncomeClassificationType)Enum.Parse(typeof(IncomeClassificationType), invoiceRecordIncomeClassification.ClassificationType.ToString(), true)
             };

@@ -5,27 +5,22 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordParty
     {
-        public InvoiceRecordParty(VatIdentifier vatNumber, int branch, string name, string countryCode, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
+        public InvoiceRecordParty(VatIdentifier vatNumber, NonNegativeInt branch, NotEmptyString name, CountryCode countryCode, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
         {
-            if (branch < 0)
-            {
-                throw new ArgumentException($"Minimal value of {nameof(branch)} number is 0.");
-            }
-            
             VatNumber = vatNumber ?? throw new ArgumentNullException(nameof(vatNumber));
-            Branch = branch;
+            Branch = branch ?? throw new ArgumentNullException(nameof(branch));
             Name = name;
-            CountryCode = countryCode;
+            CountryCode = countryCode ?? throw new ArgumentNullException(nameof(countryCode));
             Address = invoiceRecordPartyAddress;
         }
 
         public VatIdentifier VatNumber { get; }
 
-        public int Branch { get; }
+        public NonNegativeInt Branch { get; }
 
-        public string Name { get; }
+        public NotEmptyString Name { get; }
 
-        public string CountryCode { get; }
+        public CountryCode CountryCode { get; }
 
         public InvoiceRecordPartyAddress Address { get; }
     }

@@ -4,7 +4,7 @@ namespace Mews.Fiscalization.Greece.Model.Types
 {
     public abstract class LimitedString
     {
-        public LimitedString(string value, int minLength, int? maxLength)
+        public LimitedString(string value, int minLength, int? maxLength = null)
         {
             if (maxLength != null && value.Length > maxLength.Value)
             {

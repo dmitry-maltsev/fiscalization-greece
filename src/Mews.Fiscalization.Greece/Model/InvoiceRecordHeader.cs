@@ -5,7 +5,7 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordHeader
     {
-        public InvoiceRecordHeader(LimitedString1to50 invoiceSeries, LimitedString1to50 invoiceSerialNumber, DateTime invoiceIssueDate, BillType billType, string currencyCode, decimal? exchangeRate)
+        public InvoiceRecordHeader(LimitedString1to50 invoiceSeries, LimitedString1to50 invoiceSerialNumber, DateTime invoiceIssueDate, BillType billType, CurrencyCode currencyCode, ExchangeRate exchangeRate)
         {
             InvoiceSeries = invoiceSeries ?? throw new ArgumentNullException(nameof(invoiceSeries));
             InvoiceSerialNumber = invoiceSerialNumber ?? throw new ArgumentNullException(nameof(invoiceSerialNumber));
@@ -23,8 +23,8 @@ namespace Mews.Fiscalization.Greece.Model
 
         public BillType BillType { get; }
 
-        public string CurrencyCode { get; }
+        public CurrencyCode CurrencyCode { get; }
 
-        public decimal? ExchangeRate { get; }
+        public ExchangeRate ExchangeRate { get; }
     }
 }
