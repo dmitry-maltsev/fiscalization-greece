@@ -1,13 +1,14 @@
 ﻿using Mews.Fiscalization.Greece.Model.Types;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecord
     {
-		public InvoiceRecord(NotEmptyString invoiceIdentifier, long? invoiceRegistrationNumber, long? cancelledByInvoiceRegistrationNumber, InvoiceRecordParty issuer, InvoiceRecordParty counterpart, 
-			InvoiceRecordHeader invoiceHeader, IEnumerable<InvoiceRecordPaymentMethodDetails> paymentMethods, InvoiceRecordDetail invoiceDetail, InvoiceRecordSummary invoiceSummary)
+		public InvoiceRecord(NotEmptyString invoiceIdentifier, InvoiceRegistrationNumber invoiceRegistrationNumber, InvoiceRegistrationNumber cancelledByInvoiceRegistrationNumber, InvoiceRecordParty issuer, InvoiceRecordParty counterpart, 
+			InvoiceRecordHeader invoiceHeader, IEnumerable<InvoiceRecordPaymentMethodDetails> paymentMethods, IEnumerable<InvoiceRecordDetail> invoiceDetails, InvoiceRecordSummary invoiceSummary)
 		{
 			InvoiceIdentifier = invoiceIdentifier;
 			InvoiceRegistrationNumber = invoiceRegistrationNumber;
@@ -16,15 +17,20 @@ namespace Mews.Fiscalization.Greece.Model
 			Counterpart = counterpart;
 			InvoiceHeader = invoiceHeader ?? throw new ArgumentNullException(nameof(invoiceHeader));
 			PaymentMethods = paymentMethods;
-			InvoiceDetail = invoiceDetail ?? throw new ArgumentNullException(nameof(invoiceDetail));
+			InvoiceDetails = invoiceDetails ?? throw new ArgumentNullException(nameof(invoiceDetails));
 			InvoiceSummary = invoiceSummary ?? throw new ArgumentNullException(nameof(invoiceSummary));
-		}
+
+            if (invoiceDetails.Count() == 0)
+            {
+                throw new ArgumentException($"Minimal count of {nameof(invoiceDetails)} is 1.");
+            }
+        }
 
 		public NotEmptyString InvoiceIdentifier { get; }
 
-		public long? InvoiceRegistrationNumber { get; }
+		public InvoiceRegistrationNumber InvoiceRegistrationNumber { get; }
 
-		public long? CancelledByInvoiceRegistrationNumber { get; }
+		public InvoiceRegistrationNumber CancelledByInvoiceRegistrationNumber { get; }
 
 		public InvoiceRecordParty Issuer { get; }
 
@@ -34,7 +40,7 @@ namespace Mews.Fiscalization.Greece.Model
 
 		public IEnumerable<InvoiceRecordPaymentMethodDetails> PaymentMethods { get; set; }
 
-		public InvoiceRecordDetail InvoiceDetail { get; }
+		public IEnumerable<InvoiceRecordDetail> InvoiceDetails { get; }
 
 		public InvoiceRecordSummary InvoiceSummary { get; }
 	}

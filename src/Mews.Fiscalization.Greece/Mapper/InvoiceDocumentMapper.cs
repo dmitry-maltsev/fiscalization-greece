@@ -1,9 +1,9 @@
 ﻿using Mews.Fiscalization.Greece.Dto.Xsd;
+using Mews.Fiscalization.Greece.Extensions;
 using Mews.Fiscalization.Greece.Model;
+using Mews.Fiscalization.Greece.Model.Types;
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Mews.Fiscalization.Greece.Mapper
 {
@@ -40,13 +40,16 @@ namespace Mews.Fiscalization.Greece.Mapper
         {
             return new Invoice
             {
-                //ToDo: add invoice mark
-                InvoiceId = invoiceRecord.InvoiceIdentifier?.Value,
+                InvoiceMarkSpecified = invoiceRecord.InvoiceRegistrationNumber.IsDefined(),
+                InvoiceMark = invoiceRecord.InvoiceRegistrationNumber.GetOrDefault(),
+                InvoiceCancellationMarkSpecified = invoiceRecord.CancelledByInvoiceRegistrationNumber.IsDefined(),
+                InvoiceCancellationMark = invoiceRecord.CancelledByInvoiceRegistrationNumber.GetOrDefault(),
+                InvoiceId = invoiceRecord.InvoiceIdentifier.GetOrDefault(),
                 InvoiceIssuer = GetInvoiceParty(invoiceRecord.Issuer),
                 InvoiceCounterpart = GetInvoiceParty(invoiceRecord.Counterpart),
                 PaymentMethods = GetInvoicePaymentMethods(invoiceRecord.PaymentMethods),
                 InvoiceSummary = GetInvoiceSummary(invoiceRecord),
-                InvoiceDetail = GetInvoiceDetail(invoiceRecord),
+                InvoiceDetail = GetInvoiceDetails(invoiceRecord),
                 InvoiceHeader = GetInvoiceHeader(invoiceRecord)
             };
         }
@@ -109,20 +112,35 @@ namespace Mews.Fiscalization.Greece.Mapper
                 SerialNumber = invoiceRecord.InvoiceHeader.InvoiceSerialNumber.Value,
                 Series = invoiceRecord.InvoiceHeader.InvoiceSeries.Value,
                 Currency = (Currency)Enum.Parse(typeof(Currency), invoiceRecord.InvoiceHeader.CurrencyCode?.Value, true),
-                CurrencySpecified = true
-                //ToDo: add exchange rate
+                CurrencySpecified = true,
+                ExchangeRateSpecified = invoiceRecord.InvoiceHeader.ExchangeRate.IsDefined(),
+                ExchangeRate = invoiceRecord.InvoiceHeader.ExchangeRate.GetOrDefault()
             };
         }
 
-        private InvoiceDetail GetInvoiceDetail(InvoiceRecord invoiceRecord)
+        private InvoiceDetail[] GetInvoiceDetails(InvoiceRecord invoiceRecord)
+        {
+            var invoiceDetails = new List<InvoiceDetail>();
+
+            foreach (var invoiceDetail in invoiceRecord.InvoiceDetails)
+            {
+                invoiceDetails.Add(GetInvoiceDetail(invoiceDetail));
+            }
+
+            return invoiceDetails.ToArray();
+        }
+
+        private InvoiceDetail GetInvoiceDetail(InvoiceRecordDetail invoiceDetail)
         {
             return new InvoiceDetail
             {
-                LineNumber = invoiceRecord.InvoiceDetail.LineNumber.Value,
-                NetValue = invoiceRecord.InvoiceDetail.NetValue.Value,
-                VatAmount = invoiceRecord.InvoiceDetail.VatAmount.Value,
-                VatCategory = (VatCategory)Enum.Parse(typeof(VatCategory), invoiceRecord.InvoiceDetail.VatType.ToString(), true),
-                IncomeClassification = GetIncomeClassification(invoiceRecord.InvoiceDetail.InvoiceRecordIncomeClassification)
+                LineNumber = invoiceDetail.LineNumber.Value,
+                NetValue = invoiceDetail.NetValue.Value,
+                VatAmount = invoiceDetail.VatAmount.Value,
+                VatCategory = (VatCategory)Enum.Parse(typeof(VatCategory), invoiceDetail.VatType.ToString(), true),
+                IncomeClassification = GetIncomeClassifications(invoiceDetail.InvoiceRecordIncomeClassification),
+                DiscountOptionSpecified = invoiceDetail.DiscountOption.IsDefined(),
+                DiscountOption = invoiceDetail.DiscountOption.GetOrDefault(),
             };
         }
 
@@ -133,8 +151,20 @@ namespace Mews.Fiscalization.Greece.Mapper
                 TotalNetValue = invoiceRecord.InvoiceSummary.TotalNetValue.Value,
                 TotalVatAmount = invoiceRecord.InvoiceSummary.TotalVatAmount.Value,
                 TotalGrossValue = invoiceRecord.InvoiceSummary.TotalGrossValue.Value,
-                IncomeClassification = GetIncomeClassification(invoiceRecord.InvoiceSummary.InvoiceRecordIncomeClassification)
+                IncomeClassification = GetIncomeClassifications(invoiceRecord.InvoiceSummary.InvoiceRecordIncomeClassification)
             };
+        }
+
+        private IncomeClassification[] GetIncomeClassifications(IEnumerable<InvoiceRecordIncomeClassification> invoiceRecordIncomeClassification)
+        {
+            var incomeClassifications = new List<IncomeClassification>();
+
+            foreach (var invoiceIncomeClassification in invoiceRecordIncomeClassification)
+            {
+                incomeClassifications.Add(GetIncomeClassification(invoiceIncomeClassification));
+            }
+
+            return incomeClassifications.ToArray();
         }
 
         private IncomeClassification GetIncomeClassification(InvoiceRecordIncomeClassification invoiceRecordIncomeClassification)
