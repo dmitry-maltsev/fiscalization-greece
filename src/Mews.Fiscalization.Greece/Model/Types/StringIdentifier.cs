@@ -3,9 +3,10 @@ using System.Text.RegularExpressions;
 
 namespace Mews.Fiscalization.Greece.Model.Types
 {
-    public abstract class StringIdentifier
+    public abstract class StringIdentifier : Identifier<string>
     {
         protected StringIdentifier(string value, Regex pattern)
+            : base(value)
         {
             if (value == null)
             {
@@ -19,10 +20,6 @@ namespace Mews.Fiscalization.Greece.Model.Types
             {
                 throw new ArgumentException($"The value '{value}' does not match the pattern '{pattern}'");
             }
-
-            Value = value;
         }
-
-        public string Value { get; }
     }
 }

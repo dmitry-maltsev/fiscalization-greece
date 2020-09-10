@@ -14,8 +14,6 @@ namespace Mews.Fiscalization.Greece.Model
             {
                 throw new ArgumentException($"Minimal count of {nameof(invoiceRecords)} is 1.");
             }
-
-            InvoiceRecords = invoiceRecords;
         }
 
         public IEnumerable<InvoiceRecord> InvoiceRecords { get; }

@@ -2,9 +2,10 @@
 
 namespace Mews.Fiscalization.Greece.Model.Types
 {
-    public abstract class LimitedString
+    public abstract class LimitedString : Identifier<string>
     {
         public LimitedString(string value, int minLength, int? maxLength = null)
+            : base(value)
         {
             if (maxLength != null && value.Length > maxLength.Value)
             {
@@ -15,10 +16,6 @@ namespace Mews.Fiscalization.Greece.Model.Types
             {
                 throw new ArgumentException($"Min length of string is {minLength}.");
             }
-
-            Value = value;
         }
-
-        public string Value { get; }
     }
 }

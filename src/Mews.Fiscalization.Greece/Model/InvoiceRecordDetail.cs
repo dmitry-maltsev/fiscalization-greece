@@ -1,17 +1,25 @@
 ﻿using Mews.Fiscalization.Greece.Model.Types;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordDetail
     {
-        public InvoiceRecordDetail(PositiveInt lineNumber, Amount netValue, VatType vatType, Amount vatAmount, InvoiceRecordIncomeClassification invoiceRecordIncomeClassification)
+        public InvoiceRecordDetail(PositiveInt lineNumber, Amount netValue, VatType vatType, Amount vatAmount, DiscountOption discountOption, IEnumerable<InvoiceRecordIncomeClassification> invoiceRecordIncomeClassification)
         {
             LineNumber = lineNumber ?? throw new ArgumentNullException(nameof(lineNumber));
             NetValue = netValue ?? throw new ArgumentNullException(nameof(netValue));
             VatType = vatType;
             VatAmount = vatAmount ?? throw new ArgumentNullException(nameof(vatAmount));
+            DiscountOption = discountOption;
             InvoiceRecordIncomeClassification = invoiceRecordIncomeClassification ?? throw new ArgumentNullException(nameof(invoiceRecordIncomeClassification));
+
+            if (invoiceRecordIncomeClassification.Count() == 0)
+            {
+                throw new ArgumentException($"Minimal count of {nameof(invoiceRecordIncomeClassification)} is 1.");
+            }
         }
 
         public PositiveInt LineNumber { get; }
@@ -22,6 +30,8 @@ namespace Mews.Fiscalization.Greece.Model
 
         public Amount VatAmount { get; }
 
-        public InvoiceRecordIncomeClassification InvoiceRecordIncomeClassification { get; }
+        public DiscountOption DiscountOption { get; }
+
+        public IEnumerable<InvoiceRecordIncomeClassification> InvoiceRecordIncomeClassification { get; }
     }
 }
