@@ -49,7 +49,7 @@ namespace Mews.Fiscalization.Greece.Mapper
                 InvoiceCounterpart = GetInvoiceParty(invoiceRecord.Counterpart),
                 PaymentMethods = GetInvoicePaymentMethods(invoiceRecord.PaymentMethods),
                 InvoiceSummary = GetInvoiceSummary(invoiceRecord),
-                InvoiceDetail = GetInvoiceDetails(invoiceRecord),
+                InvoiceDetails = GetInvoiceDetails(invoiceRecord),
                 InvoiceHeader = GetInvoiceHeader(invoiceRecord)
             };
         }
@@ -105,17 +105,23 @@ namespace Mews.Fiscalization.Greece.Mapper
 
         private InvoiceHeader GetInvoiceHeader(InvoiceRecord invoiceRecord)
         {
-            return new InvoiceHeader
+            var invoiceHeader = new InvoiceHeader
             {
                 InvoiceType = invoiceRecord.InvoiceHeader.BillType.ConvertToEnum<InvoiceType>(),
                 IssueDate = invoiceRecord.InvoiceHeader.InvoiceIssueDate,
                 SerialNumber = invoiceRecord.InvoiceHeader.InvoiceSerialNumber.Value,
                 Series = invoiceRecord.InvoiceHeader.InvoiceSeries.Value,
-                Currency = (Currency)Enum.Parse(typeof(Currency), invoiceRecord.InvoiceHeader.CurrencyCode?.Value, true),
-                CurrencySpecified = true,
+                CurrencySpecified = invoiceRecord.InvoiceHeader.CurrencyCode.IsDefined(),
                 ExchangeRateSpecified = invoiceRecord.InvoiceHeader.ExchangeRate.IsDefined(),
                 ExchangeRate = invoiceRecord.InvoiceHeader.ExchangeRate.GetOrDefault()
             };
+
+            if (invoiceRecord.InvoiceHeader.CurrencyCode.IsDefined())
+            {
+                invoiceHeader.Currency = (Currency)Enum.Parse(typeof(Currency), invoiceRecord.InvoiceHeader.CurrencyCode.Value, true);
+            }
+
+            return invoiceHeader;
         }
 
         private InvoiceDetail[] GetInvoiceDetails(InvoiceRecord invoiceRecord)

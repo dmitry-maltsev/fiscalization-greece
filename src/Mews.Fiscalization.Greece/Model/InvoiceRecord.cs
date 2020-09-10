@@ -7,7 +7,7 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecord
     {
-		public InvoiceRecord(NotEmptyString invoiceIdentifier, InvoiceRegistrationNumber invoiceRegistrationNumber, InvoiceRegistrationNumber cancelledByInvoiceRegistrationNumber, InvoiceRecordParty issuer, InvoiceRecordParty counterpart, 
+		public InvoiceRecord(StringIdentifier invoiceIdentifier, InvoiceRegistrationNumber invoiceRegistrationNumber, InvoiceRegistrationNumber cancelledByInvoiceRegistrationNumber, InvoiceRecordParty issuer, InvoiceRecordParty counterpart, 
 			InvoiceRecordHeader invoiceHeader, IEnumerable<InvoiceRecordPaymentMethodDetails> paymentMethods, IEnumerable<InvoiceRecordDetail> invoiceDetails, InvoiceRecordSummary invoiceSummary)
 		{
 			InvoiceIdentifier = invoiceIdentifier;
@@ -26,7 +26,7 @@ namespace Mews.Fiscalization.Greece.Model
             }
         }
 
-		public NotEmptyString InvoiceIdentifier { get; }
+		public StringIdentifier InvoiceIdentifier { get; }
 
 		public InvoiceRegistrationNumber InvoiceRegistrationNumber { get; }
 

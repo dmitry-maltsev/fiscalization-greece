@@ -5,7 +5,7 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordParty
     {
-        public InvoiceRecordParty(VatIdentifier vatNumber, NonNegativeInt branch, NotEmptyString name, CountryCode countryCode, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
+        public InvoiceRecordParty(VatIdentifier vatNumber, NonNegativeInt branch, StringIdentifier name, CountryCode countryCode, InvoiceRecordPartyAddress invoiceRecordPartyAddress)
         {
             VatNumber = vatNumber ?? throw new ArgumentNullException(nameof(vatNumber));
             Branch = branch ?? throw new ArgumentNullException(nameof(branch));
@@ -18,7 +18,7 @@ namespace Mews.Fiscalization.Greece.Model
 
         public NonNegativeInt Branch { get; }
 
-        public NotEmptyString Name { get; }
+        public StringIdentifier Name { get; }
 
         public CountryCode CountryCode { get; }
 

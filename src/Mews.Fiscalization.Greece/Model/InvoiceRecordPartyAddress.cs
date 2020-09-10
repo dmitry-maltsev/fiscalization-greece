@@ -5,7 +5,7 @@ namespace Mews.Fiscalization.Greece.Model
 {
     public class InvoiceRecordPartyAddress
     {
-        public InvoiceRecordPartyAddress(NotEmptyString street, NotEmptyString number, NotEmptyString postalCode, NotEmptyString city)
+        public InvoiceRecordPartyAddress(StringIdentifier street, StringIdentifier number, NotEmptyString postalCode, NotEmptyString city)
         {
             Street = street;
             Number = number;
@@ -13,9 +13,9 @@ namespace Mews.Fiscalization.Greece.Model
             City = city ?? throw new ArgumentNullException(nameof(city));
         }
 
-        public NotEmptyString Street { get; }
+        public StringIdentifier Street { get; }
 
-        public NotEmptyString Number { get; }
+        public StringIdentifier Number { get; }
 
         public NotEmptyString PostalCode { get; }
 

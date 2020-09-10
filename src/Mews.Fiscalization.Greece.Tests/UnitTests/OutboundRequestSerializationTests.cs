@@ -74,7 +74,7 @@ namespace Mews.Fiscalization.Greece.Tests.UnitTests
 
             var invoice = _fixture.Build<Invoice>()
                 .With(x => x.Taxes, new[] { taxes })
-                .With(x => x.InvoiceDetail, new[] { invoiceDetail })
+                .With(x => x.InvoiceDetails, new[] { invoiceDetail })
                 .With(x => x.InvoiceSummary, invoiceSummary)
                 .Create();
 
