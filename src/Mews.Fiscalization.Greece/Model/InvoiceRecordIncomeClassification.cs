@@ -12,10 +12,10 @@ namespace Mews.Fiscalization.Greece.Model
             Amount = amount ?? throw new ArgumentNullException(nameof(Amount));
         }
 
-        public ClassificationType ClassificationType { get; set; }
+        public ClassificationType ClassificationType { get; }
 
-        public ClassificationCategory ClassificationCategory { get; set; }
+        public ClassificationCategory ClassificationCategory { get; }
 
-        public Amount Amount { get; set; }
+        public Amount Amount { get; }
     }
 }

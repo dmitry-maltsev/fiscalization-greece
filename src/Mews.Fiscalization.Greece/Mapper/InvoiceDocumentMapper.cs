@@ -78,7 +78,7 @@ namespace Mews.Fiscalization.Greece.Mapper
                 {
                     Country = (Country)Enum.Parse(typeof(Country), invoiceRecordParty.CountryCode.Value, true),
                     Branch = invoiceRecordParty.Branch.Value,
-                    Name = invoiceRecordParty.Name?.Value,
+                    Name = invoiceRecordParty.Name.GetOrDefault(),
                     VatNumber = invoiceRecordParty.VatNumber.Value,
                     Address = GetAddress(invoiceRecordParty.Address)
                 };
@@ -94,9 +94,9 @@ namespace Mews.Fiscalization.Greece.Mapper
                 return new Address
                 {
                     City = invoiceRecordPartyAddress.City.Value,
-                    Number = invoiceRecordPartyAddress.Number?.Value,
+                    Number = invoiceRecordPartyAddress.Number.GetOrDefault(),
                     PostalCode = invoiceRecordPartyAddress.PostalCode.Value,
-                    Street = invoiceRecordPartyAddress.Street?.Value
+                    Street = invoiceRecordPartyAddress.Street.GetOrDefault()
                 };
             }
 

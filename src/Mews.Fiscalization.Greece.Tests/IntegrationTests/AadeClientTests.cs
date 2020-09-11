@@ -40,9 +40,9 @@ namespace Mews.Fiscalization.Greece.Tests.IntegrationTests
 
             var response = await client.SendInvoicesAsync(GetInvalidTestInvoiceDocument());
 
-            Assert.True(response.SendInvoiceResults.Single().InvoiceIdentifier == null);
-            Assert.True(response.SendInvoiceResults.Single().InvoiceRegistrationNumber == null);
-            Assert.True(response.SendInvoiceResults.Single().Errors.Single() != null);
+            Assert.Null(response.SendInvoiceResults.Single().InvoiceIdentifier);
+            Assert.Null(response.SendInvoiceResults.Single().InvoiceRegistrationNumber);
+            Assert.NotNull(response.SendInvoiceResults.Single().Errors.Single());
         }
 
         private InvoiceDocument GetValidTestInvoiceDocument()
