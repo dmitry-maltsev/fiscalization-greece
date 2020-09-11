@@ -144,8 +144,9 @@ namespace Mews.Fiscalization.Greece.Mapper
                 case BillType.SimplifiedInvoice:
                     return InvoiceType.SimplifiedInvoice;
                 case BillType.SalesInvoice:
-                default:
                     return InvoiceType.SalesInvoice;
+                default:
+                    throw new ArgumentException($"Cannot map BillType {billType} to InvoiceType.");
             }
         }
 
@@ -158,8 +159,9 @@ namespace Mews.Fiscalization.Greece.Mapper
                 case ClassificationCategory.ProvisionOfServicesIncome:
                     return IncomeClassificationCategory.ProvisionOfServicesIncome;
                 case ClassificationCategory.OtherIncomeAndProfits:
-                default:
                     return IncomeClassificationCategory.OtherIncomeAndProfits;
+                default:
+                    throw new ArgumentException($"Cannot map ClassificationCategory {classificationCategory} to IncomeClassificationCategory.");
             }
         }
 
@@ -174,8 +176,9 @@ namespace Mews.Fiscalization.Greece.Mapper
                 case ClassificationType.OtherSalesOfGoodsAndServices:
                     return IncomeClassificationType.OtherSalesOfGoodsAndServices;
                 case ClassificationType.OtherOrdinaryIncome:
-                default:
                     return IncomeClassificationType.OtherOrdinaryIncome;
+                default:
+                    throw new ArgumentException($"Cannot map ClassificationType {classificationType} to IncomeClassificationType.");
             }
         }
 
@@ -192,8 +195,9 @@ namespace Mews.Fiscalization.Greece.Mapper
                 case TaxType.Vat0:
                     return VatCategory.Vat0;
                 case TaxType.WithoutVat:
-                default:
                     return VatCategory.WithoutVat;
+                default:
+                    throw new ArgumentException($"Cannot map TaxType {taxType} to VatCategory.");
             }
         }
 
@@ -210,8 +214,9 @@ namespace Mews.Fiscalization.Greece.Mapper
                 case PaymentType.OnCredit:
                     return PaymentMethodType.OnCredit;
                 case PaymentType.Cash:
-                default:
                     return PaymentMethodType.Cash;
+                default:
+                    throw new ArgumentException($"Cannot map PaymentType {paymentType} to PaymentMethodType.");
             }
         }
     }
