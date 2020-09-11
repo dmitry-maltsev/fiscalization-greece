@@ -2,14 +2,14 @@
 
 namespace Mews.Fiscalization.Greece.Extensions
 {
-    public static class IdentifierExtensions
+    internal static class IdentifierExtensions
     {
-        public static bool IsDefined<T>(this Identifier<T> value)
+        internal static bool IsDefined<T>(this Identifier<T> value)
         {
             return value != null;
         }
 
-        public static T GetOrDefault<T>(this Identifier<T> value)
+        internal static T GetOrDefault<T>(this Identifier<T> value)
         {
             if (!value.IsDefined())
             {

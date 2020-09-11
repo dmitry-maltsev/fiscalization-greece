@@ -9,7 +9,7 @@ namespace Mews.Fiscalization.Greece.Model
         {
             Street = street;
             Number = number;
-            PostalCode = postalCode ?? throw new ArgumentNullException(nameof(city));
+            PostalCode = postalCode ?? throw new ArgumentNullException(nameof(postalCode));
             City = city ?? throw new ArgumentNullException(nameof(city));
         }
 
